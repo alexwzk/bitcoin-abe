@@ -188,7 +188,7 @@ def parse_BlockHeader(vds):
 def parse_Block(vds):
   d = parse_BlockHeader(vds)
   #PMC TODO Skip ticket and rewardsignaures first
-  vds.read_bytes(18222939)
+  vds.read_bytes(202939)
   d['transactions'] = []
 #  if d['version'] & (1 << 8):
 #    d['auxpow'] = parse_AuxPow(vds)
