@@ -16,11 +16,11 @@
 
 from .Sha256Chain import Sha256Chain
 
-class Bitcoin(Sha256Chain):
+class Permacoin(Sha256Chain):
     def __init__(chain, **kwargs):
-#        chain.name = 'Bitcoin'
-#       chain.code3 = 'BTC'
+        chain.name = 'Permacoin'
+        chain.code3 = 'PRM'
         chain.address_version = '\x00'
-        chain.script_addr_vers = '\x05'
+        chain.script_addr_vers = '\x05' #FIXME magics netwoek related
         chain.magic = '\xf9\xbe\xb4\xd9'
         Sha256Chain.__init__(chain, **kwargs)
