@@ -95,15 +95,15 @@ MAX_PUBKEY = 65
 NO_CLOB = 'BUG_NO_CLOB'
 
 # XXX This belongs in another module.
-class InvalidBlock(Exception):
-    pass
-class MerkleRootMismatch(InvalidBlock):
-    def __init__(ex, block_hash, tx_hashes):
-        ex.block_hash = block_hash
-        ex.tx_hashes = tx_hashes
-    def __str__(ex):
-        return 'Block header Merkle root does not match its transactions. ' \
-            'block hash=%s' % (ex.block_hash[::-1].encode('hex'),)
+#class InvalidBlock(Exception):
+#    pass
+#class MerkleRootMismatch(InvalidBlock):
+#    def __init__(ex, block_hash, tx_hashes):
+#        ex.block_hash = block_hash
+#        ex.tx_hashes = tx_hashes
+#    def __str__(ex):
+#        return 'Block header Merkle root does not match its transactions. ' \
+ #           'block hash=%s' % (ex.block_hash[::-1].encode('hex'),)
 
 class MalformedHash(ValueError):
     pass
@@ -2606,9 +2606,10 @@ store._ddl['txout_approx'],
             tx_hash = rpc_tx_hash.decode('hex')[::-1]
 
             computed_tx_hash = chain.transaction_hash(rpc_tx)
-            if tx_hash != computed_tx_hash:
+            # FIXME: around here, we need to add support for ticket hashes in header
+            #if tx_hash != computed_tx_hash:
                 #raise InvalidBlock('transaction hash mismatch')
-                store.log.debug('transaction hash mismatch: %r != %r', tx_hash, computed_tx_hash)
+            #    store.log.debug('transaction hash mismatch: %r != %r', tx_hash, computed_tx_hash)
 
             tx = chain.parse_transaction(rpc_tx)
             tx['hash'] = tx_hash
@@ -2712,9 +2713,10 @@ store._ddl['txout_approx'],
             store.log.debug("bitcoind %s not supported", e.method)
             return False
 
-        except InvalidBlock, e:
-            store.log.debug("RPC data not understood: %s", e)
-            return False
+            # FIXME: around here, we need to add support for ticket hashes in header
+#        except InvalidBlock, e:
+#            store.log.debug("RPC data not understood: %s", e)
+#            return False
 
         return True
 

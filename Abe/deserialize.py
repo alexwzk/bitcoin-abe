@@ -175,6 +175,8 @@ def parse_BlockHeader(vds):
   header_start = vds.read_cursor
   d['version'] = vds.read_int32()
   d['hashPrev'] = vds.read_bytes(32)
+  print("parsing block")
+  print(d['hashMerkleRoot'])
   d['hashMerkleRoot'] = vds.read_bytes(32)
   d['hashTicket'] = vds.read_bytes(32)
   d['hashRewardSig'] = vds.read_bytes(32)
@@ -188,7 +190,7 @@ def parse_BlockHeader(vds):
 def parse_Block(vds):
   d = parse_BlockHeader(vds)
   #PMC TODO Skip ticket and rewardsignaures first
-  vds.read_bytes(203131)
+  vds.read_bytes(203195)
   d['transactions'] = []
 #  if d['version'] & (1 << 8):
 #    d['auxpow'] = parse_AuxPow(vds)
